@@ -153,19 +153,21 @@ void multiplicationTable() {
     getch();
 }
 
+
 // 結束前詢問是否繼續
 bool continuePrompt() {
     char ans;
     while (true) {
-        printf("Continue? (y/n)：");
+        printf("是否要結束程式？(y/n)：");
         scanf(" %c", &ans);
         ans = tolower(ans);
         if (ans == 'y') {
-            return true;
+            return false;  
         } else if (ans == 'n') {
-            return false;
+            return true;   
         } else {
             printf("輸入錯誤，請輸入 y 或 n。\n");
         }
     }
 }
+
