@@ -2,6 +2,7 @@
 #include <conio.h>   // getch() 所需
 #include <cstdlib>   // system("cls")
 #include <cctype>    // tolower()
+#include <cstring>  // 加這個提供 strcmp()
 
 using namespace std;
 
@@ -78,16 +79,16 @@ void welcomeScreen() {
 
 // 密碼登入邏輯，最多三次
 bool login() {
-    const string PASSWORD = "2025";
-    string input;
+    const char PASSWORD[] = "2025";   // 用 C 字串
+    char input[10];                   // 使用字元陣列
     int attempts = 0;
 
     while (attempts < 3) {
         welcomeScreen();
         printf("請輸入四位數密碼：");
-        cin >> input;
+        scanf("%s", input);  
 
-        if (input == PASSWORD) {
+        if (strcmp(input, PASSWORD) == 0) {  
             return true;
         } else {
             attempts++;
@@ -97,6 +98,7 @@ bool login() {
     }
     return false;
 }
+
 
 // 主選單
 void mainMenu() {
