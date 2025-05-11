@@ -247,13 +247,24 @@ int main() {
     return 0;
 }
 
-// 心得:
-// 這次製作「座位訂票系統」的過程，
-// 我不只複習了 C 語言的基本語法，
-// 也深入了解了條件判斷、迴圈控制、
-// 陣列操作以及使用者輸入驗證等重要概念。 
-// 在功能設計上，我做了隨機初始化座位、
-// 顯示座位表、密碼登入驗證等基本功能。
-// 接著，根據題目需求加入了「自動安排座位」
-// 與「自行選擇座位」兩種選位方式。
-// 這次的程式對我而言是一次非常實用且具挑戰性的學習經驗。 
+// Program description
+//
+// This program uses a clear and interactive text-based menu to guide users
+// Option a: Providesthe full seat layout
+// Option b: Automatically arrange seats
+// Option c: Choose by yourself
+// Option d: Exits and asks if you want to continue(y/n)
+
+
+
+// Experience:
+// 
+// The process of making the "seat reservation system" this time,
+// I not only reviewed the basic grammar of C language,
+// Also have a deep understanding of conditional judgment, loop control,
+// Important concepts such as array operations and user input validation. 
+// In terms of functional design, I randomly initialized seats,
+// Display seating chart, password login verification and other basic functions.
+// Then, according to the problem requirements, "Automatic Seating Arrangement" was added
+// and "Select your own seat" are two options.
+// For me, this course was a very practical and satisfying learning experience.
