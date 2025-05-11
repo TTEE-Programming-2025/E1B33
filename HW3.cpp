@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>// for system("cls")
+#include <stdlib.h> // for system("cls")
 #include <time.h>
 
 #define SIZE 9
@@ -13,7 +13,7 @@ void initSeats() {
         for (int j = 0; j < SIZE; j++)
             seats[i][j] = '-';
 
-    // Randomly book 10 seats for '*'
+    // Randomly book 10 seats
     srand(time(NULL));
     int count = 0;
     while (count < 10) {
@@ -38,11 +38,11 @@ void showSeats() {
     }
 }
 
-// Automatically arrange seats: Return the number of seats found
+// Automatically arrange seats
 int autoArrange(int needed) {
     int found = 0;
 
-    // Find consecutive vacancies in the same column
+    // Try to find horizontal consecutive seats
     for (int i = 0; i < SIZE && found == 0; i++) {
         for (int j = 0; j <= SIZE - needed; j++) {
             int ok = 1;
@@ -62,7 +62,7 @@ int autoArrange(int needed) {
         }
     }
 
-    // If there are 4 people and no one in the same column is found, then find 2 people above and below.
+    // Try 2x2 block for 4 people
     if (needed == 4 && found == 0) {
         for (int i = 0; i < SIZE - 1 && found == 0; i++) {
             for (int j = 0; j < SIZE - 1 && found == 0; j++) {
@@ -78,7 +78,7 @@ int autoArrange(int needed) {
     return found;
 }
 
-// Convert '@' to '*'
+// Confirm suggestion
 void confirmSuggestion() {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
@@ -86,7 +86,7 @@ void confirmSuggestion() {
                 seats[i][j] = '*';
 }
 
-// Convert '@' to '-'
+// Cancel suggestion
 void cancelSuggestion() {
     for (int i = 0; i < SIZE; i++)
         for (int j = 0; j < SIZE; j++)
@@ -99,7 +99,7 @@ int main() {
     int attempts = 0;
     char choice;
 
-    // Personal style
+    // Welcome screen
     printf("*********************\n");
     printf("*                   *\n");
     printf("*      WELCOME      *\n");
@@ -123,22 +123,23 @@ int main() {
 
         if (strcmp(password, "2025") == 0) {
             printf("Password correct! Welcome!\n");
-			
-			// clear screen
+
+            // clear screen
             #ifdef _WIN32
-                system("cls"); // Windows
+                system("cls");
             #else
-                system("clear"); // Linux/macOS
+                system("clear");
             #endif
 
             initSeats();
-			//Show main menu
+
+            // Main menu
             do {
                 printf("----------[Booking System]----------\n");
                 printf("| a. Available seats               |\n");
-                printf("| b. Arrange for you              |\n");
-                printf("| c. Choose by yourself           |\n");
-                printf("| d. Exit                         |\n");
+                printf("| b. Arrange for you               |\n");
+                printf("| c. Choose by yourself            |\n");
+                printf("| d. Exit                          |\n");
                 printf("------------------------------------\n");
                 printf("Please select (a/b/c/d): ");
                 scanf(" %c", &choice);
@@ -146,8 +147,8 @@ int main() {
                 if (choice == 'a') {
                     showSeats();
                     printf("Press Enter to continue...");
-                    getchar(); getchar(); // Clear newline and wait
-                }
+                    getchar(); getchar();
+                } 
                 else if (choice == 'b') {
                     int num;
                     printf("How many seats do you need (1~4)? ");
@@ -172,10 +173,51 @@ int main() {
                     } else {
                         cancelSuggestion();
                     }
-                }
+                } 
                 else if (choice == 'c') {
-                    printf("功能尚未實作。\n");
-                }
+                    int num;
+                    printf("How many seats do you want to choose (1~4)? ");
+                    scanf("%d", &num);
+                    if (num < 1 || num > 4) {
+                        printf("Invalid number.\n");
+                        continue;
+                    }
+
+                    int count = 0;
+                    while (count < num) {
+                        int row, col;
+                        char input[10];
+                        printf("Enter seat #%d (format: row-col): ", count + 1);
+                        scanf("%s", input);
+
+                        if (sscanf(input, "%d-%d", &row, &col) != 2 || row < 1 || row > 9 || col < 1 || col > 9) {
+                            printf("Invalid format or out of range. Try again.\n");
+                            continue;
+                        }
+
+                        int r = SIZE - row;
+                        int c = col - 1;
+
+                        if (seats[r][c] != '-') {
+                            printf("Seat already taken. Choose another one.\n");
+                            continue;
+                        }
+
+                        seats[r][c] = '@';
+                        count++;
+                    }
+
+                    showSeats();
+                    printf("Press Enter to confirm your selection...");
+                    getchar(); getchar(); // Wait for Enter
+                    confirmSuggestion();
+
+                    #ifdef _WIN32
+                        system("cls");
+                    #else
+                        system("clear");
+                    #endif
+                } 
                 else if (choice == 'd') {
                     printf("Continue? (y/n): ");
                     char yn;
@@ -184,7 +226,7 @@ int main() {
                         printf("Goodbye!\n");
                         break;
                     }
-                }
+                } 
                 else {
                     printf("Invalid choice.\n");
                 }
@@ -204,5 +246,4 @@ int main() {
 
     return 0;
 }
-
 
