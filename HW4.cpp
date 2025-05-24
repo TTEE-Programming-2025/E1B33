@@ -54,7 +54,7 @@ int login() {
         scanf("%s", password);
 
         if (strcmp(password, correct_password) == 0) {
-            printf("登入成功！\n");
+            printf("登入成功\\n");
             system("pause");
             return 1;
         } else {
@@ -192,7 +192,8 @@ void searchStudent() {
 void rankStudents() {
     system("cls");
     struct Student temp;
-    for (int i = 0; i < studentCount - 1; i++) {
+    // 排序 
+	for (int i = 0; i < studentCount - 1; i++) {
         for (int j = i + 1; j < studentCount; j++) {
             if (students[i].average < students[j].average) {
                 temp = students[i];
@@ -263,4 +264,12 @@ int main() {
 
     return 0;
 }
+
+// 心得:
+// 這次的作業讓我更熟悉了結構（struct）的使用，
+// 還有選單操作、條件判斷、迴圈控制以及簡單的排序邏輯，
+// 雖然過程中遇到了一些邏輯錯誤與邊界條件處理的問題，
+// 但透過除錯與修改，也讓我對程式邏輯的敏銳度提升不少，
+// 這次的作業讓我實際體會了從「使用者介面」到「資料管理」
+// 的完整系統流程，也增強了我撰寫中小型應用程式的信心。
 
