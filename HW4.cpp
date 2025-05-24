@@ -81,7 +81,7 @@ void showMenu() {
     printf("Please enter your choice: ");
 }
 
-// 第 3 題：輸入學生成績
+// 第 3 題(a)：輸入學生成績
 void inputStudents() {
     system("cls");
     int n;
@@ -137,7 +137,7 @@ void inputStudents() {
     system("pause");
 }
 
-// 第 4 題：顯示所有學生資料
+// 第 4 題(b)：顯示所有學生資料
 void displayStudents() {
     system("cls");
     printf("%-10s %-10s %-6s %-6s %-6s %-7s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
@@ -156,7 +156,7 @@ void displayStudents() {
     system("pause");
 }
 
-// 第 5 題：搜尋特定學生資料
+// 第 5 題(c)：搜尋特定學生資料
 void searchStudent() {
     char searchName[20];
     int found = 0;
@@ -188,7 +188,7 @@ void searchStudent() {
     system("pause");
 }
 
-// 第 6 題：成績排序
+// 第 6 題(d)：成績排序
 void rankStudents() {
     system("cls");
     struct Student temp;
@@ -273,3 +273,11 @@ int main() {
 // 這次的作業讓我實際體會了從「使用者介面」到「資料管理」
 // 的完整系統流程，也增強了我撰寫中小型應用程式的信心。
 
+// 說明:
+// 一開始先顯示個人風格且要求登入 
+// 登入成功顯示主選單
+// a:輸入學生成績
+// b:顯示所有學生資料
+// c:搜尋特定學生資料
+// d:成績排序
+// e:確認離開
