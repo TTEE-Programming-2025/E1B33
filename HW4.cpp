@@ -2,7 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-// 第 1 題：登入函式
+#define MAX_STUDENTS 10
+
+// 結構定義：學生資料
+struct Student {
+    char name[20];
+    int id;
+    int math;
+    int physics;
+    int english;
+    float average;
+};
+
+// 全域變數
+struct Student students[MAX_STUDENTS];
+int studentCount = 0;
+
+// 第 1 題：登入畫面
 int login() {
     char password[10];
     int attempts = 0;
@@ -10,7 +26,8 @@ int login() {
 
     while (attempts < 3) {
         system("cls"); // 清除畫面
-        // 個人風格畫面 (至少20行)
+
+        // 個人風格畫面 
         printf("=====================================\n");
         printf("*                                   *\n");
         printf("*     Welcome to Grade System       *\n");
@@ -20,32 +37,32 @@ int login() {
         printf("*     -------------------------     *\n");
         printf("*     |     Secure Login      |     *\n");
         printf("*     -------------------------     *\n");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             printf("*                                   *\n");
         }
         printf("=====================================\n");
 
-        printf("Please enter your 4-digit password: ");
+        printf("請輸入4位數密碼：");
         scanf("%s", password);
 
         if (strcmp(password, correct_password) == 0) {
-            printf("Login successful!\n");
+            printf("登入成功！\n");
             system("pause");
             return 1;
         } else {
-            printf("Incorrect password. Try again.\n");
+            printf("密碼錯誤，請再試一次。\n");
             attempts++;
             system("pause");
         }
     }
 
-    printf("Too many incorrect attempts. Exiting...\n");
+    printf("錯誤超過三次，系統結束！\n");
     return 0;
 }
 
-// 第 2 題：主選單函式
+// 第 2 題：主選單
 void showMenu() {
-    system("cls"); // 清除畫面
+    system("cls");
     printf("------------[Grade System]------------\n");
     printf("| a. Enter student grades             |\n");
     printf("| b. Display student grades           |\n");
@@ -56,40 +73,97 @@ void showMenu() {
     printf("Please enter your choice: ");
 }
 
+// 第 3 題：輸入學生成績
+void inputStudents() {
+    system("cls");
+    int n;
+
+    printf("請輸入學生人數 (5~10): ");
+    scanf("%d", &n);
+
+    // 檢查輸入人數是否有效
+    while (n < 5 || n > 10) {
+        printf("錯誤！請輸入 5~10 之間的人數: ");
+        scanf("%d", &n);
+    }
+
+    studentCount = n;
+
+    for (int i = 0; i < n; i++) {
+        printf("\n輸入第 %d 位學生資料：\n", i + 1);
+
+        printf("姓名：");
+        scanf("%s", students[i].name);
+
+        printf("學號（6位整數）：");
+        scanf("%d", &students[i].id);
+        while (students[i].id < 100000 || students[i].id > 999999) {
+            printf("錯誤！請輸入6位整數學號：");
+            scanf("%d", &students[i].id);
+        }
+
+        printf("數學成績（0~100）：");
+        scanf("%d", &students[i].math);
+        while (students[i].math < 0 || students[i].math > 100) {
+            printf("錯誤！請重新輸入：");
+            scanf("%d", &students[i].math);
+        }
+
+        printf("物理成績（0~100）：");
+        scanf("%d", &students[i].physics);
+        while (students[i].physics < 0 || students[i].physics > 100) {
+            printf("錯誤！請重新輸入：");
+            scanf("%d", &students[i].physics);
+        }
+
+        printf("英文成績（0~100）：");
+        scanf("%d", &students[i].english);
+        while (students[i].english < 0 || students[i].english > 100) {
+            printf("錯誤！請重新輸入：");
+            scanf("%d", &students[i].english);
+        }
+
+        students[i].average = (students[i].math + students[i].physics + students[i].english) / 3.0f;
+    }
+
+    printf("\n資料輸入完成！\n");
+    system("pause");
+}
+
+// 主程式
 int main() {
     char choice;
 
     if (!login()) {
-        return 0; // 登入失敗直接結束
+        return 0; // 登入失敗
     }
 
     while (1) {
         showMenu();
-        scanf(" %c", &choice); // 空格避免讀到前面輸入遺留的換行符
+        scanf(" %c", &choice); // 注意前面空格
 
         switch (choice) {
             case 'a':
-                printf("您選擇：輸入學生成績\n");
-                system("pause");
+                inputStudents(); // 第3題功能
                 break;
             case 'b':
-                printf("您選擇：顯示學生成績\n");
+                printf("功能尚未完成：顯示學生成績\n");
                 system("pause");
                 break;
             case 'c':
-                printf("您選擇：搜尋學生成績\n");
+                printf("功能尚未完成：搜尋成績\n");
                 system("pause");
                 break;
             case 'd':
-                printf("您選擇了：年級排名\n");
+                printf("功能尚未完成：排名功能\n");
                 system("pause");
                 break;
             case 'e':
-                printf("您選擇：退出系統\n");
+                printf("您選擇離開系統\n");
                 system("pause");
                 return 0;
             default:
-                printf("無效選擇。再試一次。\n");
+                printf("輸入錯誤，請重新選擇\n");
                 system("pause");
         }
     }
