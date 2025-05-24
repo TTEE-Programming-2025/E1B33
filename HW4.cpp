@@ -35,7 +35,7 @@ int login() {
         printf("*               33                  *\n");
         printf("*                                   *\n");
         printf("*             鄭丞佑                *\n");
-		printf("*                                   *\n");
+        printf("*                                   *\n");
         printf("*             Github                *\n");
         printf("*                                   *\n");
         printf("*              HW4                  *\n");
@@ -43,7 +43,7 @@ int login() {
         printf("*     Welcome to Grade System       *\n");
         printf("*                                   *\n");
         printf("*                                   *\n");
-		printf("*     -------------------------     *\n");
+        printf("*     -------------------------     *\n");
         printf("*     |     Secure Login      |     *\n");
         printf("*     -------------------------     *\n");
         printf("*                                   *\n");
@@ -54,7 +54,7 @@ int login() {
         scanf("%s", password);
 
         if (strcmp(password, correct_password) == 0) {
-            printf("登入成功！\n");
+            printf("登入成功\\n");
             system("pause");
             return 1;
         } else {
@@ -138,6 +138,27 @@ void inputStudents() {
     system("pause");
 }
 
+// 第 4 題：顯示學生成績
+void displayStudents() {
+    system("cls");
+
+    if (studentCount == 0) {
+        printf("目前無任何學生資料，請先輸入。\n");
+    } else {
+        printf("%-10s %-10s %-6s %-6s %-6s %-7s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
+        printf("---------------------------------------------------\n");
+        for (int i = 0; i < studentCount; i++) {
+            printf("%-10s %-10d %-6d %-6d %-6d %-7.1f\n",
+                   students[i].name, students[i].id,
+                   students[i].math, students[i].physics,
+                   students[i].english, students[i].average);
+        }
+    }
+
+    printf("\n請按任意鍵繼續...");
+    system("pause");
+}
+
 // 主程式
 int main() {
     char choice;
@@ -152,11 +173,10 @@ int main() {
 
         switch (choice) {
             case 'a':
-                inputStudents(); // 第3題功能
+                inputStudents();
                 break;
             case 'b':
-                printf("功能尚未完成：顯示學生成績\n");
-                system("pause");
+                displayStudents();
                 break;
             case 'c':
                 printf("功能尚未完成：搜尋成績\n");
