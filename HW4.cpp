@@ -137,21 +137,14 @@ void inputStudents() {
     system("pause");
 }
 
-// 第 4 題：顯示學生成績
+// 第 4 題：顯示所有學生資料
 void displayStudents() {
     system("cls");
-
-    if (studentCount == 0) {
-        printf("尚未輸入任何學生資料，請先輸入資料！\n");
-        system("pause");
-        return;
-    }
-
-    printf("姓名\t學號\t數學\t物理\t英文\t平均\n");
-    printf("---------------------------------------------------\n");
+    printf("%-10s %-10s %-6s %-6s %-6s %-7s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
+    printf("------------------------------------------------\n");
 
     for (int i = 0; i < studentCount; i++) {
-        printf("%s\t%d\t%d\t%d\t%d\t%.1f\n",
+        printf("%-10s %-10d %-6d %-6d %-6d %-7.1f\n",
                students[i].name,
                students[i].id,
                students[i].math,
@@ -163,31 +156,26 @@ void displayStudents() {
     system("pause");
 }
 
-// 第 5 題：搜尋學生
+// 第 5 題：搜尋特定學生資料
 void searchStudent() {
+    char searchName[20];
+    int found = 0;
     system("cls");
 
-    if (studentCount == 0) {
-        printf("尚未輸入任何學生資料，請先輸入資料！\n");
-        system("pause");
-        return;
-    }
-
-    char target[20];
-    int found = 0;
-
     printf("請輸入要查詢的學生姓名：");
-    scanf("%s", target);
+    scanf("%s", searchName);
 
     for (int i = 0; i < studentCount; i++) {
-        if (strcmp(students[i].name, target) == 0) {
-            printf("\n找到學生：\n");
-            printf("姓名：%s\n", students[i].name);
-            printf("學號：%d\n", students[i].id);
-            printf("數學成績：%d\n", students[i].math);
-            printf("物理成績：%d\n", students[i].physics);
-            printf("英文成績：%d\n", students[i].english);
-            printf("平均成績：%.1f\n", students[i].average);
+        if (strcmp(students[i].name, searchName) == 0) {
+            printf("%-10s %-10s %-6s %-6s %-6s %-7s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
+            printf("------------------------------------------------\n");
+            printf("%-10s %-10d %-6d %-6d %-6d %-7.1f\n",
+                   students[i].name,
+                   students[i].id,
+                   students[i].math,
+                   students[i].physics,
+                   students[i].english,
+                   students[i].average);
             found = 1;
             break;
         }
@@ -197,6 +185,31 @@ void searchStudent() {
         printf("查無此學生資料。\n");
     }
 
+    system("pause");
+}
+
+// 第 6 題：成績排序
+void rankStudents() {
+    system("cls");
+    struct Student temp;
+    for (int i = 0; i < studentCount - 1; i++) {
+        for (int j = i + 1; j < studentCount; j++) {
+            if (students[i].average < students[j].average) {
+                temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+
+    printf("%-10s %-10s %-7s\n", "姓名", "學號", "平均");
+    printf("--------------------------------\n");
+    for (int i = 0; i < studentCount; i++) {
+        printf("%-10s %-10d %-7.1f\n",
+               students[i].name,
+               students[i].id,
+               students[i].average);
+    }
     system("pause");
 }
 
@@ -223,8 +236,7 @@ int main() {
                 searchStudent();
                 break;
             case 'd':
-                printf("功能尚未完成：排名功能\n");
-                system("pause");
+                rankStudents();
                 break;
             case 'e':
                 printf("您選擇離開系統\n");
