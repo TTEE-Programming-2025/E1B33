@@ -30,16 +30,24 @@ int login() {
         // 個人風格畫面 
         printf("=====================================\n");
         printf("*                                   *\n");
+        printf("*              E1B                  *\n");
+        printf("*                                   *\n");
+        printf("*               33                  *\n");
+        printf("*                                   *\n");
+        printf("*             鄭丞佑                *\n");
+		printf("*                                   *\n");
+        printf("*             Github                *\n");
+        printf("*                                   *\n");
+        printf("*              HW4                  *\n");
+        printf("*                                   *\n");
         printf("*     Welcome to Grade System       *\n");
         printf("*                                   *\n");
-        printf("*     Designed by YOU (2025)        *\n");
         printf("*                                   *\n");
-        printf("*     -------------------------     *\n");
+		printf("*     -------------------------     *\n");
         printf("*     |     Secure Login      |     *\n");
         printf("*     -------------------------     *\n");
-        for (int i = 0; i < 12; i++) {
-            printf("*                                   *\n");
-        }
+        printf("*                                   *\n");
+        printf("*                                   *\n");
         printf("=====================================\n");
 
         printf("請輸入4位數密碼：");
