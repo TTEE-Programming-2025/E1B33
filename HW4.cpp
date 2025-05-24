@@ -35,7 +35,7 @@ int login() {
         printf("*               33                  *\n");
         printf("*                                   *\n");
         printf("*             鄭丞佑                *\n");
-        printf("*                                   *\n");
+		printf("*                                   *\n");
         printf("*             Github                *\n");
         printf("*                                   *\n");
         printf("*              HW4                  *\n");
@@ -43,7 +43,7 @@ int login() {
         printf("*     Welcome to Grade System       *\n");
         printf("*                                   *\n");
         printf("*                                   *\n");
-        printf("*     -------------------------     *\n");
+		printf("*     -------------------------     *\n");
         printf("*     |     Secure Login      |     *\n");
         printf("*     -------------------------     *\n");
         printf("*                                   *\n");
@@ -54,7 +54,7 @@ int login() {
         scanf("%s", password);
 
         if (strcmp(password, correct_password) == 0) {
-            printf("登入成功\\n");
+            printf("登入成功！\n");
             system("pause");
             return 1;
         } else {
@@ -89,7 +89,6 @@ void inputStudents() {
     printf("請輸入學生人數 (5~10): ");
     scanf("%d", &n);
 
-    // 檢查輸入人數是否有效
     while (n < 5 || n > 10) {
         printf("錯誤！請輸入 5~10 之間的人數: ");
         scanf("%d", &n);
@@ -143,19 +142,61 @@ void displayStudents() {
     system("cls");
 
     if (studentCount == 0) {
-        printf("目前無任何學生資料，請先輸入。\n");
-    } else {
-        printf("%-10s %-10s %-6s %-6s %-6s %-7s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
-        printf("---------------------------------------------------\n");
-        for (int i = 0; i < studentCount; i++) {
-            printf("%-10s %-10d %-6d %-6d %-6d %-7.1f\n",
-                   students[i].name, students[i].id,
-                   students[i].math, students[i].physics,
-                   students[i].english, students[i].average);
+        printf("尚未輸入任何學生資料，請先輸入資料！\n");
+        system("pause");
+        return;
+    }
+
+    printf("姓名\t學號\t數學\t物理\t英文\t平均\n");
+    printf("---------------------------------------------------\n");
+
+    for (int i = 0; i < studentCount; i++) {
+        printf("%s\t%d\t%d\t%d\t%d\t%.1f\n",
+               students[i].name,
+               students[i].id,
+               students[i].math,
+               students[i].physics,
+               students[i].english,
+               students[i].average);
+    }
+
+    system("pause");
+}
+
+// 第 5 題：搜尋學生
+void searchStudent() {
+    system("cls");
+
+    if (studentCount == 0) {
+        printf("尚未輸入任何學生資料，請先輸入資料！\n");
+        system("pause");
+        return;
+    }
+
+    char target[20];
+    int found = 0;
+
+    printf("請輸入要查詢的學生姓名：");
+    scanf("%s", target);
+
+    for (int i = 0; i < studentCount; i++) {
+        if (strcmp(students[i].name, target) == 0) {
+            printf("\n找到學生：\n");
+            printf("姓名：%s\n", students[i].name);
+            printf("學號：%d\n", students[i].id);
+            printf("數學成績：%d\n", students[i].math);
+            printf("物理成績：%d\n", students[i].physics);
+            printf("英文成績：%d\n", students[i].english);
+            printf("平均成績：%.1f\n", students[i].average);
+            found = 1;
+            break;
         }
     }
 
-    printf("\n請按任意鍵繼續...");
+    if (!found) {
+        printf("查無此學生資料。\n");
+    }
+
     system("pause");
 }
 
@@ -179,8 +220,7 @@ int main() {
                 displayStudents();
                 break;
             case 'c':
-                printf("功能尚未完成：搜尋成績\n");
-                system("pause");
+                searchStudent();
                 break;
             case 'd':
                 printf("功能尚未完成：排名功能\n");
