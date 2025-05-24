@@ -212,6 +212,17 @@ void rankStudents() {
     }
     system("pause");
 }
+// 第 7 題：確認離開
+int confirmExit() {
+    char answer;
+    while (1) {
+        printf("確定離開？(y/n): ");
+        scanf(" %c", &answer);
+        if (answer == 'y' || answer == 'Y') return 1;
+        else if (answer == 'n' || answer == 'N') return 0;
+        else printf("請輸入 y 或 n。\n");
+    }
+}
 
 // 主程式
 int main() {
@@ -239,9 +250,11 @@ int main() {
                 rankStudents();
                 break;
             case 'e':
-                printf("您選擇離開系統\n");
-                system("pause");
-                return 0;
+                if (confirmExit()) {
+                    printf("您已退出系統。\n");
+                    return 0;
+                }
+                break;
             default:
                 printf("輸入錯誤，請重新選擇\n");
                 system("pause");
